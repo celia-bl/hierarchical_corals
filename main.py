@@ -1,19 +1,13 @@
-from extract_features import extract_features, create_full_batch
-import torch
-import matplotlib.pyplot as plt
-
 NN_NAME_LIST = ['efficientnet-b0']
 CROP_SIZE = 224
-path_images_batches = './Images-2'
+path_images_batches = './Rio_do_Fogo_Benthic_Images'
 path_annotations = './annotations'
 annotations_file = path_annotations + '/annotations.csv'
 weights_file = './weights/efficientnet_b0_ver1.pt'
 
 from hiclass import LocalClassifierPerParentNode, LocalClassifierPerNode, LocalClassifierPerLevel
-from hierarchical_utils import *
 from train_classifier import *
 from analyze_data import *
-import cProfile
 
 
 def main(folder_path, flat_classifiers, hierarchical_classifiers, nb_images, intermediate_labels):
@@ -27,8 +21,8 @@ def main(folder_path, flat_classifiers, hierarchical_classifiers, nb_images, int
     mispredicted_vectors_hi = {}
 
     #x_train, x_test, y_train, y_test = load_data(folder_path)
-    #x_train, x_test, y_train, y_test = load_representative_data(folder_path)
-    x_train, x_test, y_train, y_test = load_representative_data_mlc(folder_path)
+    x_train, x_test, y_train, y_test = load_representative_data(folder_path)
+    #x_train, x_test, y_train, y_test = load_representative_data_mlc(folder_path)
     #x_train, x_test, y_train, y_test = load_representative_uniform_data(folder_path)
     plot_label_distribution(y_test)
 
@@ -155,20 +149,20 @@ def main(folder_path, flat_classifiers, hierarchical_classifiers, nb_images, int
     print('Final dict ', hi_reports)
     print('Intermediate dict ', flat_intermediate_reports)
 
-    result_file = './results/test_MLC/'
+    #result_file = './results/test/'
 
-    save_pickle(flat_reports, result_file + 'flat_reports.pkl')
-    save_pickle(flat_hi_reports, result_file + 'flat_hi_reports.pkl')
-    save_pickle(hi_flat_reports, result_file + 'hi_flat_reports.pkl')
-    save_pickle(hi_reports, result_file + 'hi_reports.pkl')
-    save_pickle(flat_intermediate_reports, result_file + 'flat_intermediate_reports.pkl')
-    save_pickle(hi_intermediate_reports, result_file + 'hi_intermediate_reports.pkl')
-    save_pickle(y_test, result_file + 'y_test.pkl')
-    save_pickle(intermediate_labels, result_file + 'intermediate_labels.pkl')
+    #save_pickle(flat_reports, result_file + 'flat_reports.pkl')
+    #save_pickle(flat_hi_reports, result_file + 'flat_hi_reports.pkl')
+    #save_pickle(hi_flat_reports, result_file + 'hi_flat_reports.pkl')
+    #save_pickle(hi_reports, result_file + 'hi_reports.pkl')
+    #save_pickle(flat_intermediate_reports, result_file + 'flat_intermediate_reports.pkl')
+    #save_pickle(hi_intermediate_reports, result_file + 'hi_intermediate_reports.pkl')
+    #save_pickle(y_test, result_file + 'y_test.pkl')
+    #save_pickle(intermediate_labels, result_file + 'intermediate_labels.pkl')
 
     plot_metrics_by_nb_images(flat_reports, flat_hi_reports, hi_flat_reports, hi_reports)
     plot_intermediate_metrics(flat_intermediate_reports, hi_intermediate_reports)
-    comparison_cover(flat_intermediate_reports, hi_intermediate_reports, y_test, intermediate_labels)
+    #comparison_cover(flat_intermediate_reports, hi_intermediate_reports, y_test, intermediate_labels)
     #plot_mispredict_vectors(mispredicted_vectors_hi, mispredicted_vectors_flat, folder_path, annotations_file, path_images_batches)
 
 
@@ -185,10 +179,8 @@ if __name__ == '__main__':
         #'LCPPN-2': MLPHead(hidden_layers=(100,))
         #'LCPN-1': MLPClassifier(hidden_layer_sizes=(100,), max_iter=1000)
     }
-    nb_images = [200, 600, 800, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 8000, 10000, 20000, 30000, 405800]
-    #nb_images = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400]
-    #nb_images = [20, 50]
+    nb_images = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400]
     folder_path = '.features/efficientnet-b0_features'
-    #intermediate_labels = ['Bleached', 'Corals', 'Algae', 'Non Calcified', 'Calcified', 'Hard', 'Soft', 'Substrates', 'Rock', 'SHAD', 'Unk']
-    intermediate_labels = ['Corals', 'Algae', 'Hard', 'Soft', 'Sand']
+    intermediate_labels = ['Bleached', 'Corals', 'Algae', 'Non Calcified', 'Calcified', 'Hard', 'Soft', 'Substrates', 'Rock', 'SHAD', 'Unk']
+    #intermediate_labels = ['Corals', 'Algae', 'Hard', 'Soft', 'Sand']
     main(folder_path, flat_classifiers, hierarchical_classifiers, nb_images, intermediate_labels)

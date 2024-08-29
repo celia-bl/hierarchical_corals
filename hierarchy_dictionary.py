@@ -154,7 +154,7 @@ def find_hierarchy_path(node):
     path = []
     while node is not None:
         path.append(node)
-        node = hierarchy_MLC.get(node)
+        node = hierarchy.get(node)
     path.reverse()  # Reverse to get path from root to the node
     return path
 

@@ -26,7 +26,8 @@ labelset_df = pd.read_csv(labelset_file)
 
 # Dict between labels and label id
 label_to_id = {label: label_id for label_id, label in zip(labelset_df["Label ID"], labelset_df["Short Code"])}
-#label_to_line_number = {label: index for index, label in enumerate(labelset_df["Short Code"])}
+label_to_line_number = {label: index for index, label in enumerate(labelset_df["Short Code"])}
+'''
 label_to_line_number = CaseInsensitiveDict({
     'CCA':0,
     'Porit':1,
@@ -60,6 +61,65 @@ label_to_line_number = CaseInsensitiveDict({
     'P mass':29,
     'P. Irr':30
 })
+'''
+
 short_codes_unique = labelset_df["Short Code"].unique()
 index_list = list(range(len(short_codes_unique)))
 line_number_to_label = {v: k for k, v in label_to_line_number.items()}
+
+code_label_full_name = {
+    'PAL':'Palythoa spp.',
+    'Sand':'Sand',
+    'Turf_sand':'Turf and sand',
+    'TFL':'Turf Filamenteous',
+    'CNA/CC':'Calcifying calcareous crustose algae: DHC',
+    'DICT4':'Dictyota spp.',
+    'ZOS': 'Zoanthus Sociatus',
+    'TCC': 'Calcareous Turf',
+    'SIDS': 'Siderastrea Stellata',
+    'DICMER':'Dictyota Mertensii',
+    'SHAD':'Shadow',
+    'DICTC':'Dictyota Ciliolata',
+    'CIAN4':'Cyanobacteria films',
+    'Unk':'Unknown',
+    'SINV_BLC':'Soft Coral Bleached',
+    'POA':'Porites Astreoides',
+    'BL': 'Bleached Coral Point',
+    'Rock':'Rock',
+    'DICPD':'Dictyopteris Delicatula',
+    'DICP':'Dictyopteris spp.',
+    'LAU':'Laurencia spp.',
+    'WRAN':'Wrangelia',
+    'ARC': 'Substrate: Unconsolidated (soft)',
+    'MIL':'Millepora spp.',
+    'FAV':'Favia Gravida',
+    'CIAN2':'Cyanobacteria',
+    'ZOA':'Zoanthus spp.',
+    'Gespp.':'Gelidiella spp.',
+    'MIA': 'Millepora Alcicornis',
+    'DICPP':'Dictyopteris Plagiogramma',
+    'RD_HC': 'Recent Dead Coral',
+    'SARG':'Sargassum',
+    'PRPV':'Protopalythoa Variabilis',
+    'SID':'Siderastrea spp.',
+    'HYP':'Hypnea Musciformis',
+    'OMCO2':'Leathery Macrophytes: Other',
+    'A/J':'Amphiroa spp.',
+    'PLG':'Plexaurella Grandiflora',
+    'PAC':'Palythoa Caribaeorum',
+    'OSPO5':'Sponge',
+    'VALV':'Valonia Ventricosa',
+    'ANM':'Anemone',
+    'DICTM':'Dictyota Menstrualis',
+    'TUB':'Tubastrea',
+    'C':'Coral',
+    'GLD':'Gelidium spp.',
+    'FISH':'Fish',
+    'D_coral':'Dead Coral',
+    'INC3':'Encrusting sponge',
+    'DICPJM':'Dictyopteris Jamaicensis',
+    'CAU':'Caulerpa',
+    'AGH':'Agaricia Humilis',
+    'OMCA':'Macroalgae: Articulated calcareous',
+    'PLACO':' Placospongia'
+}

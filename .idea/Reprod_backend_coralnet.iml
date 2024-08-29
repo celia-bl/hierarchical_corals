@@ -3,7 +3,6 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.features" />
-      <excludeFolder url="file://$MODULE_DIR$/.features_Rio_do_Fogo" />
       <excludeFolder url="file://$MODULE_DIR$/3100imagesminames" />
       <excludeFolder url="file://$MODULE_DIR$/Images-2" />
       <excludeFolder url="file://$MODULE_DIR$/MLC" />
@@ -13,6 +12,7 @@
       <excludeFolder url="file://$MODULE_DIR$/patches" />
       <excludeFolder url="file://$MODULE_DIR$/results" />
       <excludeFolder url="file://$MODULE_DIR$/test_patch" />
+      <excludeFolder url="file://$MODULE_DIR$/.features_MLC" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

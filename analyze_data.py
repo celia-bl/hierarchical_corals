@@ -1,6 +1,6 @@
 import pickle
 import random
-
+from params import code_label_full_name
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 import numpy as np
 import matplotlib.pyplot as plt
@@ -519,30 +519,33 @@ def plot_labels_table(total_label_count):
     # Trier par ordre décroissant
     labels, total_counts = zip(*sorted(zip(labels, total_counts), key=lambda x: x[1], reverse=True))
 
+    # Remplacer les codes par les noms complets
+    full_names = [code_label_full_name.get(label, label) for label in labels]
+
     # Diviser les données en deux colonnes
-    half = len(labels) // 2
-    labels_col1, labels_col2 = labels[:half], labels[half:]
+    half = len(full_names) // 2
+    full_names_col1, full_names_col2 = full_names[:half], full_names[half:]
     counts_col1, counts_col2 = total_counts[:half], total_counts[half:]
 
     # Créer une figure pour afficher le tableau
-    fig, ax = plt.subplots(figsize=(12, len(labels) * 0.4))  # Ajuster la largeur en fonction du nombre de labels
+    fig, ax = plt.subplots(figsize=(40, len(full_names) * 0.7))  # Ajuster la largeur en fonction du nombre de labels
     ax.axis('off')
 
     # Créer le tableau avec deux colonnes
     table_data = []
-    max_rows = max(len(labels_col1), len(labels_col2))
+    max_rows = max(len(full_names_col1), len(full_names_col2))
 
     for i in range(max_rows):
         row = []
-        if i < len(labels_col1):
-            row.append(labels_col1[i])
+        if i < len(full_names_col1):
+            row.append(full_names_col1[i])
             row.append(counts_col1[i])
         else:
             row.append('')
             row.append('')
 
-        if i < len(labels_col2):
-            row.append(labels_col2[i])
+        if i < len(full_names_col2):
+            row.append(full_names_col2[i])
             row.append(counts_col2[i])
         else:
             row.append('')
@@ -555,12 +558,12 @@ def plot_labels_table(total_label_count):
 
     # Ajuster la taille de la police et la largeur des colonnes
     table.auto_set_font_size(False)
-    table.set_fontsize(25)
+    table.set_fontsize(40)
     table.auto_set_column_width([0, 1, 2, 3])
 
     # Ajuster la hauteur des cellules
     for key, cell in table.get_celld().items():
-        cell.set_height(0.04)  # Ajuster la hauteur des cellules (0.5 est un exemple, ajustez selon vos besoins)
+        cell.set_height(0.04)  # Ajuster la hauteur des cellules (0.04 est un exemple, ajustez selon vos besoins)
 
     # Afficher le tableau
     plt.show()
